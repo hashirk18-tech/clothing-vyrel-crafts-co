@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VyrelCraftsCo — Craft Your Signature Style</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F5F2EC;
+    --ivory-2:#EFEAE0;
+    --ink:#1C1917;
+    --charcoal:#2B2824;
+    --oxblood:#6B2737;
+    --oxblood-dark:#511D29;
+    --camel:#C7A876;
+    --hairline:#DAD4C8;
+    --muted:#8A8477;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--ivory);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .container{max-width:1320px;margin:0 auto;padding:0 40px;}
+  a{color:inherit;text-decoration:none;}
+  .rule{border:none;border-top:1px solid var(--hairline);}
+  .vrule{border-left:1px solid var(--hairline);}
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(245,242,236,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--hairline);
+  }
+  .nav-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 40px;max-width:1320px;margin:0 auto;
+  }
+  .logo{font-family:'Fraunces',serif;font-size:22px;letter-spacing:0.02em;font-weight:500;}
+  .nav-links{display:flex;gap:36px;font-size:14px;}
+  .nav-links a{position:relative;padding-bottom:4px;}
+  .nav-links a:after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;
+    background:var(--oxblood);transition:width .3s ease;
+  }
+  .nav-links a:hover:after{width:100%;}
+  .nav-icons{display:flex;align-items:center;gap:20px;}
+  .icon-btn{cursor:pointer;display:flex;align-items:center;gap:6px;font-size:13px;position:relative;}
+  .icon-btn svg{width:19px;height:19px;stroke:var(--ink);fill:none;stroke-width:1.4;}
+  .cart-count{
+    position:absolute;top:-6px;right:-8px;background:var(--oxblood);color:var(--ivory);
+    font-size:10px;width:16px;height:16px;border-radius:50%;display:flex;
+    align-items:center;justify-content:center;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    display:grid;grid-template-columns:1.05fr 0.95fr;
+    min-height:88vh;align-items:stretch;
+  }
+  .hero-copy{
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 40px 0 80px;max-width:620px;
+  }
+  .hero-kicker{
+    font-size:13px;color:var(--oxblood);letter-spacing:0.06em;margin-bottom:22px;
+    font-weight:500;
+  }
+  .hero h1{
+    font-size:clamp(44px,5.4vw,74px);line-height:1.03;margin-bottom:26px;
+  }
+  .hero p{
+    font-size:17px;line-height:1.6;color:var(--charcoal);max-width:440px;margin-bottom:38px;
+  }
+  .hero-ctas{display:flex;gap:16px;flex-wrap:wrap;}
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:15px 30px;font-size:14px;letter-spacing:0.02em;
+    border:1px solid var(--ink);cursor:pointer;transition:all .25s ease;
+    font-family:'Inter',sans-serif;
+  }
+  .btn-primary{background:var(--ink);color:var(--ivory);}
+  .btn-primary:hover{background:var(--oxblood);border-color:var(--oxblood);}
+  .btn-ghost{background:transparent;color:var(--ink);}
+  .btn-ghost:hover{background:var(--ink);color:var(--ivory);}
+  .hero-media{position:relative;overflow:hidden;background:var(--ivory-2);}
+  .hero-media img{width:100%;height:100%;object-fit:cover;display:block;
+    animation:heroReveal 1.4s cubic-bezier(.22,1,.36,1) both;}
+  @keyframes heroReveal{
+    from{opacity:0;transform:scale(1.06);}
+    to{opacity:1;transform:scale(1);}
+  }
+  .hero-tag{
+    position:absolute;left:28px;bottom:28px;background:var(--ivory);
+    padding:14px 20px;font-size:13px;line-height:1.4;max-width:220px;
+    border:1px solid var(--hairline);
+  }
+  .hero-tag .serif{font-size:14px;display:block;margin-bottom:2px;}
+
+  /* ---------- SECTION LABELS ---------- */
+  .section{padding:110px 0;}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:56px;gap:24px;flex-wrap:wrap;
+  }
+  .section-head h2{font-size:clamp(30px,3vw,40px);}
+  .section-head .desc{font-size:14px;color:var(--muted);max-width:340px;line-height:1.6;}
+  .view-all{font-size:13px;border-bottom:1px solid var(--ink);padding-bottom:2px;white-space:nowrap;}
+
+  /* ---------- CATEGORIES ---------- */
+  .cat-grid{
+    display:grid;grid-template-columns:repeat(6,1fr);gap:2px;background:var(--hairline);
+  }
+  .cat-card{
+    position:relative;aspect-ratio:3/4.2;overflow:hidden;background:var(--ivory-2);
+  }
+  .cat-card:nth-child(1),.cat-card:nth-child(2){grid-row:span 1;}
+  .cat-card img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.22,1,.36,1);}
+  .cat-card:hover img{transform:scale(1.06);}
+  .cat-label{
+    position:absolute;left:0;bottom:0;right:0;padding:18px 16px;
+    background:linear-gradient(to top, rgba(28,25,23,0.55), transparent);
+    color:#fff;font-family:'Fraunces',serif;font-size:16px;
+  }
+
+  /* ---------- PRODUCT GRID ---------- */
+  .product-grid{
+    display:grid;grid-template-columns:repeat(4,1fr);gap:36px 28px;
+  }
+  .product-card{cursor:pointer;}
+  .product-media{
+    position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--ivory-2);
+    margin-bottom:16px;
+  }
+  .product-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
+  .product-card:hover .product-media img{transform:scale(1.045);}
+  .badge{
+    position:absolute;top:12px;left:12px;background:var(--ivory);
+    font-size:11px;letter-spacing:0.05em;padding:5px 10px;color:var(--oxblood);
+    border:1px solid var(--oxblood);
+  }
+  .wish{
+    position:absolute;top:10px;right:10px;width:34px;height:34px;
+    background:rgba(245,242,236,0.92);display:flex;align-items:center;justify-content:center;
+    font-size:15px;opacity:0;transition:opacity .25s ease;
+  }
+  .product-card:hover .wish{opacity:1;}
+  .quick-add{
+    position:absolute;left:12px;right:12px;bottom:12px;
+    background:var(--ink);color:var(--ivory);text-align:center;padding:12px;
+    font-size:12.5px;letter-spacing:0.03em;opacity:0;transform:translateY(6px);
+    transition:all .25s ease;
+  }
+  .product-card:hover .quick-add{opacity:1;transform:translateY(0);}
+  .product-name{font-size:15px;margin-bottom:6px;}
+  .product-meta{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;}
+  .price-strike{color:var(--muted);text-decoration:line-through;margin-right:8px;font-size:13px;}
+  .swatches{display:flex;gap:6px;margin-top:10px;}
+  .swatch{width:14px;height:14px;border-radius:50%;border:1px solid var(--hairline);}
+
+  /* ---------- EDITORIAL BANNER ---------- */
+  .editorial{
+    position:relative;min-height:64vh;display:flex;align-items:center;
+    overflow:hidden;background:var(--charcoal);
+  }
+  .editorial img{
+    position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0.62;
+  }
+  .editorial-copy{position:relative;z-index:2;color:var(--ivory);max-width:560px;padding:0 80px;}
+  .editorial-copy h2{font-size:clamp(34px,4vw,54px);line-height:1.08;margin-bottom:24px;}
+  .editorial-copy p{font-size:15.5px;line-height:1.7;color:#E6E1D6;margin-bottom:32px;max-width:420px;}
+
+  /* ---------- REVIEWS ---------- */
+  .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;}
+  .review-card{padding:0 36px;border-left:1px solid var(--hairline);}
+  .review-card:first-child{border-left:none;padding-left:0;}
+  .review-card:last-child{padding-right:0;}
+  .stars{color:var(--camel);font-size:13px;margin-bottom:18px;letter-spacing:2px;}
+  .review-quote{font-family:'Fraunces',serif;font-size:19px;line-height:1.55;font-style:italic;
+    color:var(--ink);margin-bottom:22px;}
+  .review-author{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);}
+  .review-avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0;}
+  .review-author-name{color:var(--ink);font-weight:500;display:block;}
+
+  /* ---------- NEWSLETTER ---------- */
+  .newsletter{
+    background:var(--ink);color:var(--ivory);padding:96px 0;text-align:center;
+  }
+  .newsletter h2{font-size:clamp(30px,3.4vw,44px);color:var(--ivory);margin-bottom:16px;}
+  .newsletter p{color:#B8B2A4;font-size:15px;margin-bottom:38px;}
+  .news-form{display:flex;max-width:440px;margin:0 auto;border:1px solid #4A453E;}
+  .news-form input{
+    flex:1;background:transparent;border:none;padding:16px 20px;color:var(--ivory);
+    font-size:14px;font-family:'Inter',sans-serif;outline:none;
+  }
+  .news-form input::placeholder{color:#8A8477;}
+  .news-form button{
+    background:var(--oxblood);color:var(--ivory);border:none;padding:16px 26px;
+    font-size:13px;letter-spacing:0.03em;cursor:pointer;transition:background .25s ease;
+  }
+  .news-form button:hover{background:var(--oxblood-dark);}
+
+  /* ---------- SOCIAL STRIP ---------- */
+  .social-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:var(--hairline);}
+  .social-strip .cell{aspect-ratio:1;overflow:hidden;position:relative;}
+  .social-strip img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+  .social-strip .cell:hover img{transform:scale(1.08);}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--ivory-2);border-top:1px solid var(--hairline);padding:80px 0 0;}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;padding-bottom:60px;}
+  .foot-col h4{font-size:13px;letter-spacing:0.04em;margin-bottom:20px;color:var(--muted);}
+  .foot-col a{display:block;font-size:14px;margin-bottom:13px;color:var(--charcoal);}
+  .foot-col a:hover{color:var(--oxblood);}
+  .foot-brand{font-family:'Fraunces',serif;font-size:24px;margin-bottom:14px;}
+  .foot-brand-desc{font-size:14px;color:var(--muted);max-width:280px;line-height:1.6;}
+  .foot-bottom{
+    border-top:1px solid var(--hairline);padding:26px 0;display:flex;
+    justify-content:space-between;align-items:center;font-size:13px;color:var(--muted);
+  }
+
+  /* ---------- MOBILE MENU TOGGLE ---------- */
+  .menu-toggle{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:4px;}
+  .menu-toggle span{width:22px;height:1.5px;background:var(--ink);display:block;transition:all .25s ease;}
+  .menu-toggle.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .menu-toggle.open span:nth-child(2){opacity:0;}
+  .menu-toggle.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .mobile-nav{
+    display:none;flex-direction:column;max-height:0;overflow:hidden;
+    background:var(--ivory);border-bottom:1px solid var(--hairline);
+    transition:max-height .35s ease;
+  }
+  .mobile-nav.open{max-height:320px;}
+  .mobile-nav a{padding:16px 40px;font-size:15px;border-top:1px solid var(--hairline);}
+  .mobile-nav a:first-child{border-top:none;}
+
+  /* ---------- SEARCH OVERLAY ---------- */
+  .search-overlay{
+    position:fixed;inset:0;background:rgba(28,25,23,0.55);z-index:100;
+    display:flex;align-items:flex-start;justify-content:center;
+    opacity:0;pointer-events:none;transition:opacity .25s ease;
+  }
+  .search-overlay.open{opacity:1;pointer-events:auto;}
+  .search-panel{
+    background:var(--ivory);width:100%;max-width:640px;margin-top:14vh;
+    padding:36px 40px;border:1px solid var(--hairline);
+  }
+  .search-panel-head{display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--hairline);padding-bottom:18px;}
+  .search-panel-head svg{width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:1.4;flex-shrink:0;}
+  .search-panel input{
+    flex:1;border:none;background:transparent;font-size:20px;font-family:'Fraunces',serif;
+    outline:none;color:var(--ink);
+  }
+  .search-panel input::placeholder{color:var(--muted);}
+  .search-close{cursor:pointer;font-size:22px;line-height:1;color:var(--muted);background:none;border:none;}
+  .search-hint{font-size:13px;color:var(--muted);margin-top:18px;}
+
+  /* ---------- WISHLIST STATE ---------- */
+  .wish.active{opacity:1;color:var(--oxblood);}
+  .icon-btn.wish-nav.active svg{stroke:var(--oxblood);fill:var(--oxblood);}
+
+  /* ---------- TOAST ---------- */
+  .toast{
+    position:fixed;left:50%;bottom:32px;transform:translate(-50%,20px);
+    background:var(--ink);color:var(--ivory);padding:14px 26px;font-size:13.5px;
+    letter-spacing:0.02em;opacity:0;pointer-events:none;transition:all .3s ease;z-index:200;
+    white-space:nowrap;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+
+  /* ---------- NEWSLETTER STATES ---------- */
+  .news-form.success{display:none;}
+  .news-success{display:none;font-size:15px;color:var(--camel);margin-top:8px;}
+  .news-success.show{display:block;}
+  .news-form input.error{outline:1px solid var(--oxblood);}
+
+  @media (max-width:1100px){
+    .hero{grid-template-columns:1fr;min-height:auto;}
+    .hero-copy{padding:80px 32px 60px;max-width:none;}
+    .hero-media{min-height:60vh;}
+    .cat-grid{grid-template-columns:repeat(3,1fr);}
+    .product-grid{grid-template-columns:repeat(2,1fr);}
+    .review-grid{grid-template-columns:1fr;gap:40px;}
+    .review-card{border-left:none;padding:0;border-top:1px solid var(--hairline);padding-top:32px;}
+    .review-card:first-child{border-top:none;padding-top:0;}
+    .editorial-copy{padding:0 32px;}
+    .foot-grid{grid-template-columns:1fr 1fr;}
+    .nav-links{display:none;}
+    .menu-toggle{display:flex;}
+    .mobile-nav{display:flex;}
+    .social-strip{grid-template-columns:repeat(3,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#" class="logo">VyrelCraftsCo</a>
+    <div class="nav-links">
+      <a href="#new">New Arrivals</a>
+      <a href="#categories">Women</a>
+      <a href="#categories">Men</a>
+      <a href="#collection">Collections</a>
+      <a href="#">Sale</a>
+    </div>
+    <div class="nav-icons">
+      <button class="icon-btn" id="searchToggle" aria-label="Search">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <button class="icon-btn wish-nav" id="wishNav" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-10-9.2C.5 8.4 2.2 4.8 5.7 4.2c2-.3 3.9.6 5 2.2 1.1-1.6 3-2.5 5-2.2 3.5.6 5.2 4.2 3.7 7.6C19.5 16.4 12 21 12 21z"/></svg>
+        <span class="cart-count" id="wishCount" style="display:none;">0</span>
+      </button>
+      <button class="icon-btn" id="cartBtn" aria-label="Cart">
+        <svg viewBox="0 0 24 24"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6L4.5 3H2"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17.5" cy="19" r="1.4"/></svg>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#new">New Arrivals</a>
+    <a href="#categories">Women</a>
+    <a href="#categories">Men</a>
+    <a href="#collection">Collections</a>
+    <a href="#">Sale</a>
+  </div>
+</nav>
+
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-panel">
+    <div class="search-panel-head">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input type="text" id="searchInput" placeholder="Search products, categories..." autocomplete="off"/>
+      <button class="search-close" id="searchClose" aria-label="Close search">&times;</button>
+    </div>
+    <p class="search-hint">Try "Waverly Coat", "Denim", or "Dresses"</p>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<section class="hero">
+  <div class="hero-copy">
+    <span class="hero-kicker">Autumn / Winter Collection</span>
+    <h1>Craft Your<br/>Signature Style.</h1>
+    <p>Discover thoughtfully designed clothing made for modern wardrobes — cut from natural fibers, finished by hand, built to outlast the season.</p>
+    <div class="hero-ctas">
+      <a href="#new" class="btn btn-primary">Shop New Arrivals</a>
+      <a href="#collection" class="btn btn-ghost">Explore Collection</a>
+    </div>
+  </div>
+  <div class="hero-media">
+    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" alt="Model wearing the Autumn/Winter collection" />
+    <div class="hero-tag">
+      <span class="serif">The Waverly Coat</span>
+      Italian wool, hand-finished seams
+    </div>
+  </div>
+</section>
+
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-head">
+      <h2>Shop by Category</h2>
+      <span class="view-all">View all categories</span>
+    </div>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=500&q=80" alt="Women's category"/>
+      <div class="cat-label">Women</div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1516257984-b1b4d707412e?w=500&q=80" alt="Men's category"/>
+      <div class="cat-label">Men</div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=500&q=80" alt="Knitwear category"/>
+      <div class="cat-label">Knitwear</div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1548126032-079a0fb0099d?w=500&q=80" alt="Jackets category"/>
+      <div class="cat-label">Jackets</div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=500&q=80" alt="Dresses category"/>
+      <div class="cat-label">Dresses</div>
+    </div>
+    <div class="cat-card">
+      <img src="https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=500&q=80" alt="New Arrivals category"/>
+      <div class="cat-label">New Arrivals</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="new">
+  <div class="container">
+    <div class="section-head">
+      <h2>New Arrivals</h2>
+      <span class="view-all">Shop all new arrivals</span>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card" data-name="Waverly Wool Coat">
+        <div class="product-media">
+          <span class="badge">NEW</span>
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&q=80" alt="Waverly Wool Coat"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Waverly Wool Coat</p>
+        <div class="product-meta"><span>$328</span><span>4.8 ★</span></div>
+        <div class="swatches">
+          <div class="swatch" style="background:#3d3a35"></div>
+          <div class="swatch" style="background:#C7A876"></div>
+          <div class="swatch" style="background:#6B2737"></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Cable Knit Cardigan">
+        <div class="product-media">
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1576871337622-98d48d1cf531?w=500&q=80" alt="Cable Knit Cardigan"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Cable Knit Cardigan</p>
+        <div class="product-meta"><span><span class="price-strike">$168</span>$134</span><span>4.6 ★</span></div>
+        <div class="swatches">
+          <div class="swatch" style="background:#E6E1D6"></div>
+          <div class="swatch" style="background:#8A8477"></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Tailored Wide Trouser">
+        <div class="product-media">
+          <span class="badge">NEW</span>
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=500&q=80" alt="Tailored Wide Trouser"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Tailored Wide Trouser</p>
+        <div class="product-meta"><span>$142</span><span>4.9 ★</span></div>
+        <div class="swatches">
+          <div class="swatch" style="background:#1C1917"></div>
+          <div class="swatch" style="background:#3d3a35"></div>
+        </div>
+      </div>
+
+      <div class="product-card" data-name="Silk Slip Dress">
+        <div class="product-media">
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=500&q=80" alt="Silk Slip Dress"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Silk Slip Dress</p>
+        <div class="product-meta"><span>$212</span><span>4.7 ★</span></div>
+        <div class="swatches">
+          <div class="swatch" style="background:#6B2737"></div>
+          <div class="swatch" style="background:#1C1917"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="editorial" id="collection">
+  <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1400&q=80" alt="Editorial fashion photography"/>
+  <div class="editorial-copy">
+    <h2>Designed for the moments that matter.</h2>
+    <p>Every piece in the Essentials line is built around a simple idea: clothing should move with you, not against you. Considered fabrics, considered fit, nothing extra.</p>
+    <a href="#" class="btn btn-primary" style="border-color:var(--ivory);background:var(--ivory);color:var(--ink);">Explore the Collection</a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <h2>Best Sellers</h2>
+      <span class="view-all">Shop all best sellers</span>
+    </div>
+    <div class="product-grid">
+      <div class="product-card" data-name="Merino Crewneck">
+        <div class="product-media">
+          <span class="badge">BESTSELLER</span>
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=500&q=80" alt="Merino Crewneck"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Merino Crewneck</p>
+        <div class="product-meta"><span>$98</span><span>4.9 ★</span></div>
+      </div>
+      <div class="product-card" data-name="Field Jacket">
+        <div class="product-media">
+          <span class="badge">BESTSELLER</span>
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=500&q=80" alt="Field Jacket"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Field Jacket</p>
+        <div class="product-meta"><span>$248</span><span>4.8 ★</span></div>
+      </div>
+      <div class="product-card" data-name="Straight Leg Denim">
+        <div class="product-media">
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&q=80" alt="Straight Leg Denim"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Straight Leg Denim</p>
+        <div class="product-meta"><span>$118</span><span>4.7 ★</span></div>
+      </div>
+      <div class="product-card" data-name="Wrap Midi Dress">
+        <div class="product-media">
+          <span class="badge">LOW STOCK</span>
+          <span class="wish">♡</span>
+          <img src="https://images.unsplash.com/photo-1539008835657-9e8e9680c956?w=500&q=80" alt="Wrap Midi Dress"/>
+          <div class="quick-add">Quick Add</div>
+        </div>
+        <p class="product-name">Wrap Midi Dress</p>
+        <div class="product-meta"><span>$186</span><span>4.9 ★</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <hr class="rule" style="margin-bottom:80px;"/>
+    <div class="section-head" style="margin-bottom:60px;">
+      <h2>What Customers Are Saying</h2>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-quote">The fabric quality is unlike anything I've bought online — it actually looks better in person.</p>
+        <div class="review-author">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Anna R."/>
+          <span><span class="review-author-name">Anna R.</span>Verified Purchase</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-quote">Sizing was spot-on thanks to the size guide, and the coat has held up through an entire winter.</p>
+        <div class="review-author">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&q=80" alt="Marcus D."/>
+          <span><span class="review-author-name">Marcus D.</span>Verified Purchase</span>
+        </div>
+      </div>
+      <div class="review-card">
+        <div class="stars">★★★★★</div>
+        <p class="review-quote">Shipping was fast, packaging felt premium, and the customer service team answered within hours.</p>
+        <div class="review-author">
+          <img class="review-avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&q=80" alt="Sofia L."/>
+          <span><span class="review-author-name">Sofia L.</span>Verified Purchase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="newsletter">
+  <div class="container">
+    <h2>Join the VyrelCraftsCo Journal</h2>
+    <p>New arrivals, seasonal edits, and 10% off your first order.</p>
+    <form class="news-form" id="newsForm">
+      <input type="email" id="newsEmail" placeholder="Enter your email" required/>
+      <button type="submit">Subscribe</button>
+    </form>
+    <p class="news-success" id="newsSuccess">Thank you — check your inbox for your 10% off code.</p>
+  </div>
+</section>
+
+<section class="social-strip">
+  <div class="cell"><img src="https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?w=400&q=80" alt="Instagram post"/></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80" alt="Instagram post"/></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?w=400&q=80" alt="Instagram post"/></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1485231183945-fffde7cc051e?w=400&q=80" alt="Instagram post"/></div>
+  <div class="cell"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80" alt="Instagram post"/></div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col">
+        <div class="foot-brand">VyrelCraftsCo</div>
+        <p class="foot-brand-desc">Modern clothing crafted from natural materials, designed for wardrobes that last beyond a single season.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Shop</h4>
+        <a href="#">New Arrivals</a>
+        <a href="#">Women</a>
+        <a href="#">Men</a>
+        <a href="#">Collections</a>
+        <a href="#">Sale</a>
+      </div>
+      <div class="foot-col">
+        <h4>Help</h4>
+        <a href="#">Contact</a>
+        <a href="#">FAQ</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Size Guide</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Journal</a>
+        <a href="#">Careers</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 VyrelCraftsCo. All rights reserved.</span>
+      <span>Instagram · Facebook · Pinterest · TikTok</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ---------- TOAST ---------- */
+  var toastEl = document.getElementById('toast');
+  var toastTimer;
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 2200);
+  }
+
+  /* ---------- MOBILE MENU ---------- */
+  var menuToggle = document.getElementById('menuToggle');
+  var mobileNav = document.getElementById('mobileNav');
+  menuToggle.addEventListener('click', function(){
+    var isOpen = mobileNav.classList.toggle('open');
+    menuToggle.classList.toggle('open', isOpen);
+    menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  mobileNav.querySelectorAll('a').forEach(function(link){
+    link.addEventListener('click', function(){
+      mobileNav.classList.remove('open');
+      menuToggle.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ---------- SEARCH OVERLAY ---------- */
+  var searchToggle = document.getElementById('searchToggle');
+  var searchOverlay = document.getElementById('searchOverlay');
+  var searchClose = document.getElementById('searchClose');
+  var searchInput = document.getElementById('searchInput');
+
+  function openSearch(){
+    searchOverlay.classList.add('open');
+    setTimeout(function(){ searchInput.focus(); }, 50);
+  }
+  function closeSearch(){
+    searchOverlay.classList.remove('open');
+    searchInput.value = '';
+  }
+  searchToggle.addEventListener('click', openSearch);
+  searchClose.addEventListener('click', closeSearch);
+  searchOverlay.addEventListener('click', function(e){
+    if (e.target === searchOverlay) closeSearch();
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape'){
+      closeSearch();
+      mobileNav.classList.remove('open');
+      menuToggle.classList.remove('open');
+    }
+  });
+  searchInput.addEventListener('keydown', function(e){
+    if (e.key === 'Enter' && searchInput.value.trim()){
+      showToast('Searching for "' + searchInput.value.trim() + '"…');
+      closeSearch();
+    }
+  });
+
+  /* ---------- CART ---------- */
+  var cartCountEl = document.getElementById('cartCount');
+  var cartCount = 0;
+  function updateCartBadge(){
+    cartCountEl.textContent = cartCount;
+    cartCountEl.style.display = cartCount > 0 ? 'flex' : 'none';
+  }
+  updateCartBadge();
+
+  document.querySelectorAll('.quick-add').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var card = btn.closest('.product-card');
+      var name = card ? card.getAttribute('data-name') : 'Item';
+      cartCount++;
+      updateCartBadge();
+      showToast(name + ' added to cart');
+    });
+  });
+
+  document.getElementById('cartBtn').addEventListener('click', function(){
+    showToast(cartCount > 0 ? cartCount + ' item(s) in your cart' : 'Your cart is empty');
+  });
+
+  /* ---------- WISHLIST ---------- */
+  var wishCountEl = document.getElementById('wishCount');
+  var wishTotal = 0;
+  function updateWishBadge(){
+    wishCountEl.textContent = wishTotal;
+    wishCountEl.style.display = wishTotal > 0 ? 'flex' : 'none';
+  }
+
+  document.querySelectorAll('.wish').forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.stopPropagation();
+      var card = btn.closest('.product-card');
+      var name = card ? card.getAttribute('data-name') : 'Item';
+      var active = btn.classList.toggle('active');
+      btn.textContent = active ? '♥' : '♡';
+      wishTotal += active ? 1 : -1;
+      updateWishBadge();
+      showToast(active ? name + ' saved to wishlist' : name + ' removed from wishlist');
+    });
+  });
+
+  document.getElementById('wishNav').addEventListener('click', function(){
+    showToast(wishTotal > 0 ? wishTotal + ' item(s) saved' : 'Your wishlist is empty');
+  });
+
+  /* ---------- NEWSLETTER ---------- */
+  var newsForm = document.getElementById('newsForm');
+  var newsEmail = document.getElementById('newsEmail');
+  var newsSuccess = document.getElementById('newsSuccess');
+
+  newsForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var value = newsEmail.value.trim();
+    var valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+    if (!valid){
+      newsEmail.classList.add('error');
+      newsEmail.focus();
+      return;
+    }
+    newsEmail.classList.remove('error');
+    newsForm.classList.add('success');
+    newsSuccess.classList.add('show');
+  });
+  newsEmail.addEventListener('input', function(){
+    newsEmail.classList.remove('error');
+  });
+
+  /* ---------- SCROLL REVEAL ---------- */
+  var revealTargets = document.querySelectorAll('.product-card, .cat-card, .review-card');
+  if ('IntersectionObserver' in window){
+    revealTargets.forEach(function(el){
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity .6s ease, transform .6s ease';
+    });
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (entry.isIntersecting){
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealTargets.forEach(function(el){ io.observe(el); });
+  }
+
+})();
+</script>
+
+</body>
+</html>
